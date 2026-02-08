@@ -1,2 +1,5 @@
-# healthcare-analytics
-Analytics Stack in a HealthCare Organization { dbt, Motherduck }
+## HealthCare Analytics
+
+
+### Entity Relationship Diagram
+![](./assets/ERD.png)
