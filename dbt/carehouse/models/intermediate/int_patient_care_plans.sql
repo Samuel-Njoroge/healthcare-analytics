@@ -6,12 +6,10 @@
 
 SELECT 
     p.patient_id,
-    e.encounter_id,
-    e.start_date,
-    e.end_date,
-    e.organization_id,
-    e.provider_id,
-    e.payer_id,
+    c.care_plan_id,
+    c.encounter_id,
+    c.start_date,
+    c.end_date,
     p.birth_date,
     p.death_date,
     p.social_security_number,
@@ -34,14 +32,8 @@ SELECT
     p.longitude,
     p.healthcare_expenses,
     p.healthcare_coverage,
-    e.encounter_class,
-    e.code,
-    e.description,
-    e.base_encounter_cost,
-    e.total_claim_cost,
-    e.payer_coverage,
-    e.reason_code,
-    e.reason_description    
+    c.code AS care_plan_code,
+    c.reason_code
 FROM ref {{ ('stg_patients') }} p  
-LEFT JOIN {{ ('stg_encounters') }} e
-    ON p.patient_id = e.patient_id 
+LEFT JOIN {{ ('stg_care_plans') }} c
+    ON p.patient_id = c.patient_id 
