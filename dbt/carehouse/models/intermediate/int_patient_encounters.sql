@@ -42,6 +42,6 @@ SELECT
     e.payer_coverage,
     e.reason_code,
     e.reason_description    
-FROM ref {{ ('stg_patients') }} p  
-LEFT JOIN {{ ('stg_encounters') }} e
+FROM {{ ref('stg_patients') }} p  
+LEFT JOIN {{ ref('stg_encounters') }} e
     ON p.patient_id = e.patient_id 

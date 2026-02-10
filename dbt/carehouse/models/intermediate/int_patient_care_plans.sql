@@ -34,6 +34,6 @@ SELECT
     p.healthcare_coverage,
     c.code AS care_plan_code,
     c.reason_code
-FROM ref {{ ('stg_patients') }} p  
-LEFT JOIN {{ ('stg_care_plans') }} c
+FROM {{ ref('stg_patients') }} p  
+LEFT JOIN {{ ref('stg_care_plans') }} c
     ON p.patient_id = c.patient_id 
