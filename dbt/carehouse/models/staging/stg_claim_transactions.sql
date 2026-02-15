@@ -38,4 +38,4 @@ SELECT
     FEESCHEDULEID AS fee_scheduled_id, 
     PROVIDERID AS provider_id,
     SUPERVISINGPROVIDERID AS supervising_provider_id
-FROM healthcare.raw.claim_transactions
+FROM healthcare.raw.claims_transactions
