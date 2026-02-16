@@ -1,12 +1,17 @@
 import great_expectations as gx
-import pandas as pd
+import os
+from dotenv import load_dotenv
 
 
-# Read data 
-df = pd.read_csv('')
+# Load environment variables
+load_dotenv()
 
-# Context
 context = gx.get_context()
+
+# MotherDuck connection details
+motherduck_token = os.getenv("MOTHERDUCK_TOKEN")
+motherduck_database = os.getenv("MOTHERDUCK_DATABASE", "healthcare")
+allergies_table = os.getenv("MOTHERDUCK_ALLERGIES_TABLE", "staging.stg_allergies")
 
 # Expectation Suite
 suite_name = "stg_allergies_expectation_suite"
@@ -14,11 +19,22 @@ suite = gx.ExpectationSuite(name=suite_name)
 
 suite = context.suites.add(suite)
 
-data_source = context.data_sources.add_pandas("pandas")
-data_asset = data_source.add_dataframe_asset(name="allergies assets")
+connection_string = (
+    f"duckdb:///md:{motherduck_database}"
+    f"?motherduck_token={motherduck_token}"
+)
 
-batch_definition = data_asset.add_batch_definition_whole_dataframe("batch definition")
-batch = batch_definition.get_batch(batch_parameters={"dataframe": df})
+data_source = context.data_sources.add_or_update_sql(
+    name="motherduck",
+    connection_string=connection_string
+)
+data_asset = data_source.add_table_asset(
+    name="allergies assets",
+    table_name=allergies_table
+)
+
+batch_definition = data_asset.add_batch_definition_whole_table("batch definition")
+batch = batch_definition.get_batch()
 
 # Expectation  1: category
 """
