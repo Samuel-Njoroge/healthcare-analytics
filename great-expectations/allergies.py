@@ -22,7 +22,7 @@ batch = batch_definition.get_batch(batch_parameters={"dataframe": df})
 
 # Expectation  1: category
 """
-Checks category is in [environment, food, medication]
+Checks category is in [environment, food, medication].
 """
 expectation = gx.expectations.ExpectColumnDistinctValuesToBeInSet(
     column="category",
