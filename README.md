@@ -38,7 +38,7 @@ Business problems solved:
 - Enables faster decisions for finance, operations, and care management teams.
 
 ## 3. Architecture
-![arch](./assets/architecture.svg)
+![arch](./assets/arch.svg)
 
 High-level flow:
 1. Raw healthcare CSV datasets are extracted from Kaggle, compressed into `.parquet` files.
